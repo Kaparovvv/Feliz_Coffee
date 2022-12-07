@@ -1,0 +1,80 @@
+import 'package:feliz_coin/commons/barItem_helper.dart';
+import 'package:feliz_coin/commons/icon_images.dart';
+import 'package:feliz_coin/commons/text_style_helper.dart';
+import 'package:feliz_coin/commons/theme_helper.dart';
+import 'package:feliz_coin/screens/buyer/screens/QR_code_screen/QR_code_screen.dart';
+import 'package:feliz_coin/screens/buyer/screens/balance_screen/balance_screen.dart';
+import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
+import 'package:feliz_coin/screens/buyer/screens/profile_screen/profile_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class BuyerNavigationWidget extends StatefulWidget {
+  final int currentIndex;
+  const BuyerNavigationWidget({Key? key, required this.currentIndex})
+      : super(key: key);
+
+  @override
+  State<BuyerNavigationWidget> createState() => _BuyerNavigationWidgetState();
+}
+
+class _BuyerNavigationWidgetState extends State<BuyerNavigationWidget> {
+  late int _selectedIndex;
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const BranchScreen(),
+    const BalanceScreen(),
+    const QrCodeScreen(),
+    const ProfileSceen(),
+  ];
+
+  @override
+  void initState() {
+    _selectedIndex = widget.currentIndex;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: _widgetOptions,
+        ),
+      ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20.r),
+        ),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: ThemeHelper.green80,
+          ),
+          child: BottomNavigationBar(
+            showSelectedLabels: true,
+            selectedItemColor: ThemeHelper.white,
+            unselectedItemColor: ThemeHelper.white50,
+            selectedLabelStyle: TextStyleHelper.labelStyle,
+            unselectedLabelStyle: TextStyleHelper.labelStyle,
+            type: BottomNavigationBarType.fixed,
+            items: <BottomNavigationBarItem>[
+              BarItemHelper().barItem(IconsImages.shopIcon, 'Каталог'),
+              BarItemHelper().barItem(IconsImages.balanceIcon, 'Баланс'),
+              BarItemHelper().barItem(IconsImages.qrCodeIcon, 'QR-code'),
+              BarItemHelper().barItem(IconsImages.profileIcon, 'Профиль'),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: (int index) {
+              setState(
+                () {
+                  _selectedIndex = index;
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
