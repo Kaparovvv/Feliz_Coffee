@@ -73,7 +73,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                               ),
                             ),
                             Text(
-                              'потвердите...',
+                              'подтвердите...',
                               textAlign: TextAlign.center,
                               style: TextStyleHelper.functionBox,
                             ),
