@@ -123,9 +123,7 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
                     onPressed: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                          const   BasketScreen()
-                      ),
+                          builder: (context) => const BasketScreen()),
                     ),
                     title: 'QR-code отсканирован',
                     username: state.userDataModel.username,
@@ -204,7 +202,7 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
+      // bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
     );
   }
 }

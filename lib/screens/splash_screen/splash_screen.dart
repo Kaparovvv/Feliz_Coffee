@@ -26,8 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Future navigate() {
-    Future.delayed(
+  Future navigate() async {
+    await Future.delayed(
       const Duration(seconds: 3),
     );
     return Navigator.pushReplacement(

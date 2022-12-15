@@ -1,6 +1,4 @@
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
-import 'package:feliz_coin/screens/buyer/screens/shop_screen/shop_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -103,7 +103,7 @@ class _PaymentWithAppState extends State<PaymentWithApp> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.r),
                               ),
-                              primary: ThemeHelper.white,
+                              backgroundColor: ThemeHelper.white,
                               maximumSize: Size(80.w, 32.h),
                               minimumSize: Size(80.w, 32.h),
                             ),
@@ -143,7 +143,7 @@ class _PaymentWithAppState extends State<PaymentWithApp> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.r),
                         ),
-                        primary: ThemeHelper.white,
+                        backgroundColor: ThemeHelper.white,
                         maximumSize: Size(150.w, 40.h),
                         minimumSize: Size(150.w, 40.h),
                       ),
@@ -171,7 +171,7 @@ class _PaymentWithAppState extends State<PaymentWithApp> {
           ),
         ],
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 1),
+      bottomNavigationBar: const SellerNavigationWidget(currentPage: 1),
     );
   }
 }

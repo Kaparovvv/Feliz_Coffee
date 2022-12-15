@@ -1,4 +1,3 @@
-import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:feliz_coin/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SellerNavigationWidget(currentIndex: 0),
+        home: const SplashScreen(),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/c
 import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/local_widgets/buttonWithIcon_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/scannerQRCode_screen/scannerQRCode_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
+import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,6 +76,9 @@ class _BasketScreenState extends State<BasketScreen> {
               ),
             ],
           ),
+          bottomNavigationBar: const SellerNavigationWidget(
+            currentPage: 1,
+          ),
         ),
         BlocConsumer<CreateSaleBloc, CreateSaleState>(
           bloc: _createSaleBloc,
@@ -105,9 +109,6 @@ class _BasketScreenState extends State<BasketScreen> {
           },
         ),
       ],
-        ],
-      ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
     );
   }
 }

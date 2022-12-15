@@ -12,17 +12,12 @@ import 'package:feliz_coin/screens/auth_screen/local_widgets/auth_button_widget.
 import 'package:feliz_coin/screens/auth_screen/local_widgets/auth_textfield_widget.dart';
 import 'package:feliz_coin/screens/auth_screen/sign_in_screen/bloc/sign_in_bloc.dart';
 import 'package:feliz_coin/screens/auth_screen/sign_up_screen/local_widgets/authBox_widget.dart';
-import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
-import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/basket_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
-import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../buyer/screens/profile_screen/profile_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);

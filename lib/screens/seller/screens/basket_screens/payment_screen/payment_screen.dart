@@ -100,7 +100,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    primary: const Color.fromRGBO(255, 255, 255, 1),
+                    backgroundColor: ThemeHelper.white,
                     maximumSize: Size(150.w, 40.h),
                     minimumSize: Size(150.w, 40.h),
                   ),
@@ -117,7 +117,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 1),
+      bottomNavigationBar: const SellerNavigationWidget(currentPage: 1),
     );
   }
 }
