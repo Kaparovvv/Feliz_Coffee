@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Feliz Logo',
+        title: 'Feliz Coin',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

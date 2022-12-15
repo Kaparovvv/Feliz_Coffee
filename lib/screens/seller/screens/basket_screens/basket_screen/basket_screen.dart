@@ -105,6 +105,9 @@ class _BasketScreenState extends State<BasketScreen> {
           },
         ),
       ],
+        ],
+      ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
     );
   }
 }

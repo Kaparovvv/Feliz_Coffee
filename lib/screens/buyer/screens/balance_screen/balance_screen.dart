@@ -3,6 +3,7 @@ import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/appCover_balance_widget.dart';
 import 'package:feliz_coin/global_widgets/btnTryAgain_widget.dart';
 import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
+import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/balance_screen/bloc/balance_bloc.dart';
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/local_widget/history_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 1),
     );
   }
 }

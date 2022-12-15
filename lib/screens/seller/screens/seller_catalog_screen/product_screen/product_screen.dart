@@ -6,7 +6,8 @@ import 'package:feliz_coin/global_widgets/btnTryAgain_widget.dart';
 import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
 import 'package:feliz_coin/global_widgets/refresh_indicator_widget.dart';
 import 'package:feliz_coin/global_widgets/search_textfield_widget.dart';
-import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/local_widget/catalogProducts_widget.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/local_widgets/catalogProducts_widget.dart';
+import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -123,6 +124,7 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 0),
     );
   }
 }

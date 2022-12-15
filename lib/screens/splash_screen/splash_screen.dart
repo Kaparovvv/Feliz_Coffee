@@ -26,43 +26,17 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Future navigate() async {
-    await Future.delayed(
+  Future navigate() {
+    Future.delayed(
       const Duration(seconds: 3),
     );
     return Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => const AuthScreen(),
-        // const SellerNavigationWidget(currentIndex: 0),
       ),
     );
   }
-  // customFunction() async {
-  //   var box = Hive.box('tokenBox');
-  //   String token = box.get('token', defaultValue: '');
-
-  //   await Future.delayed(const Duration(seconds: 3));
-
-  //   if (token == '') {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => const BranchScreen(),
-  //       ),
-  //     );
-  //   } else {
-  //     Future.delayed(
-  //       const Duration(seconds: 3),
-  //     );
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => const BranchScreen(),
-  //       ),
-  //     );
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

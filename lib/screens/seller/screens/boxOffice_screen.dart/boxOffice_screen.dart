@@ -4,6 +4,7 @@ import 'package:feliz_coin/global_widgets/appCover_widget.dart';
 import 'package:feliz_coin/global_widgets/search_textfield_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/cashBox_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/local_widget/history_button_widget.dart';
+import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -59,6 +60,7 @@ class _BoxOfficeScreenState extends State<BoxOfficeScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 2),
     );
   }
 }

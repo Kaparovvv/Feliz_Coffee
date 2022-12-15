@@ -3,6 +3,7 @@ import 'package:feliz_coin/global_widgets/btnTryAgain_widget.dart';
 import 'package:feliz_coin/global_widgets/feliz_logo_widget.dart';
 import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
 import 'package:feliz_coin/global_widgets/refresh_indicator_widget.dart';
+import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/bloc/branch_bloc.dart';
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/local_widget/branch_button.dart';
 import 'package:feliz_coin/screens/buyer/screens/shop_screen/shop_screen.dart';
@@ -119,6 +120,7 @@ class _BranchScreenState extends State<BranchScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 0),
     );
   }
 }
