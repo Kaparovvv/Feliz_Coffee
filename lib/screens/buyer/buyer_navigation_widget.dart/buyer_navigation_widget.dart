@@ -1,80 +1,142 @@
-import 'package:feliz_coin/commons/barItem_helper.dart';
-import 'package:feliz_coin/commons/icon_images.dart';
-import 'package:feliz_coin/commons/text_style_helper.dart';
-import 'package:feliz_coin/commons/theme_helper.dart';
-import 'package:feliz_coin/screens/buyer/screens/QR_code_screen/QR_code_screen.dart';
-import 'package:feliz_coin/screens/buyer/screens/balance_screen/balance_screen.dart';
+
+
+
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
-import 'package:feliz_coin/screens/buyer/screens/profile_screen/profile_screen.dart';
+import 'package:feliz_coin/screens/buyer/screens/shop_screen/shop_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BuyerNavigationWidget extends StatefulWidget {
-  final int currentIndex;
-  const BuyerNavigationWidget({Key? key, required this.currentIndex})
-      : super(key: key);
+import '../../../commons/icon_images.dart';
+import '../../../commons/text_style_helper.dart';
+import '../../../commons/theme_helper.dart';
+import '../screens/QR_code_screen/QR_code_screen.dart';
+import '../screens/balance_screen/balance_screen.dart';
+import '../screens/profile_screen/profile_screen.dart';
 
-  @override
-  State<BuyerNavigationWidget> createState() => _BuyerNavigationWidgetState();
-}
+class BuyerNavigationWidget extends StatelessWidget {
+  final int currentPage;
 
-class _BuyerNavigationWidgetState extends State<BuyerNavigationWidget> {
-  late int _selectedIndex;
+  BuyerNavigationWidget({this.currentPage = 0});
 
-  final List<Widget> _widgetOptions = <Widget>[
-    const BranchScreen(),
-    const BalanceScreen(),
-    const QrCodeScreen(),
-    const ProfileSceen(),
-  ];
-
-  @override
-  void initState() {
-    _selectedIndex = widget.currentIndex;
-    super.initState();
+  List<BottomNavigationBarItem> _generateItemList() {
+    
+    var items = <BottomNavigationBarItem>[
+     BottomNavigationBarItem(
+      icon: Image.asset(
+        IconsImages.shopIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white50,
+      ),
+      activeIcon: Image.asset(
+       IconsImages.shopIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white,
+      ),
+      label: 'Каталог',
+    ),
+      BottomNavigationBarItem(
+      icon: Image.asset(
+        IconsImages.balanceIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white50,
+      ),
+      activeIcon: Image.asset(
+       IconsImages.balanceIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white,
+      ),
+      label: "Баланс",
+    ),
+      BottomNavigationBarItem(
+      icon: Image.asset(
+       IconsImages.qrCodeIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white50,
+      ),
+      activeIcon: Image.asset(
+         IconsImages.qrCodeIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white,
+      ),
+      label: "Qr-code",
+    ),
+      
+      BottomNavigationBarItem(
+      icon: Image.asset(
+       IconsImages.profileIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white50,
+      ),
+      activeIcon: Image.asset(
+         IconsImages.profileIcon,
+        width: 40.w,
+        height: 40.h,
+        color: ThemeHelper.white,
+      ),
+      label: "Прфиль",
+    ),
+    ];
+    return items;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: _widgetOptions,
-        ),
-      ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20.r),
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: ThemeHelper.green80,
-          ),
-          child: BottomNavigationBar(
-            showSelectedLabels: true,
-            selectedItemColor: ThemeHelper.white,
-            unselectedItemColor: ThemeHelper.white50,
-            selectedLabelStyle: TextStyleHelper.labelStyle,
-            unselectedLabelStyle: TextStyleHelper.labelStyle,
-            type: BottomNavigationBarType.fixed,
-            items: <BottomNavigationBarItem>[
-              BarItemHelper().barItem(IconsImages.shopIcon, 'Каталог'),
-              BarItemHelper().barItem(IconsImages.balanceIcon, 'Баланс'),
-              BarItemHelper().barItem(IconsImages.qrCodeIcon, 'QR-code'),
-              BarItemHelper().barItem(IconsImages.profileIcon, 'Профиль'),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: (int index) {
-              setState(
-                () {
-                  _selectedIndex = index;
-                },
-              );
-            },
-          ),
-        ),
-      ),
+    return BottomNavigationBar(
+      items: _generateItemList(),
+      selectedItemColor: ThemeHelper.white,
+      unselectedItemColor: ThemeHelper.white50,
+      selectedLabelStyle: TextStyleHelper.labelStyle,
+      unselectedLabelStyle: TextStyleHelper.labelStyle,
+      showUnselectedLabels: true,
+      backgroundColor: ThemeHelper.green80,
+      iconSize: 24,
+      unselectedFontSize: 14,
+      onTap: (index) async {
+        switch (index) {
+          case 0:
+            {
+              if (currentPage != index) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BranchScreen()));
+              }
+              break;
+            }
+          case 1:
+            {
+              if (currentPage != index) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BalanceScreen()));
+              }
+              break;
+            }
+          case 2:
+            {
+              if (currentPage != index) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QrCodeScreen()));
+              }
+              break;
+            }
+            case 3:{
+                if (currentPage != index) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileSceen()));
+              }
+              break;
+            }
+        }
+      },
+      currentIndex: currentPage,
+      type: BottomNavigationBarType.fixed,
     );
   }
 }
+

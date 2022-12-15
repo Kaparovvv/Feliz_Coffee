@@ -4,6 +4,7 @@ import 'package:feliz_coin/screens/seller/screens/basket_screens/pointsDeduction
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/local_widget/product_cost_cashback.dart';
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/local_widget/titles.dart';
 import 'package:feliz_coin/screens/seller/screens/boxOffice_screen.dart/local_widget/total_cost.dart';
+import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -130,6 +131,7 @@ class _PointsDeductionScreenState extends State<PointsDeductionScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 1),
     );
   }
 }

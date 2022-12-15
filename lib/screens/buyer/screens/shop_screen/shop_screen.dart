@@ -4,6 +4,7 @@ import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/appCover_widget.dart';
 import 'package:feliz_coin/global_widgets/search_textfield_widget.dart';
 import 'package:feliz_coin/models/branch_model.dart';
+import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/shop_screen/local_widgets/product_name_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/product_buyer_screen/product_buyer_screen.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,7 @@ class _ShopScreenState extends State<ShopScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 0),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:feliz_coin/commons/box_shadow_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/appCover_widget.dart';
+import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -170,6 +171,7 @@ class _PaymentWithAppState extends State<PaymentWithApp> {
           ),
         ],
       ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 1),
     );
   }
 }

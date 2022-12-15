@@ -3,6 +3,7 @@ import 'package:feliz_coin/commons/text_style_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/appCover_widget.dart';
 import 'package:feliz_coin/screens/auth_screen/sign_up_screen/bloc/sign_up_bloc.dart';
+import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/profile_screen/local_bloc_consumers/logout_consumers.dart';
 import 'package:feliz_coin/screens/buyer/screens/profile_screen/local_widget/changeInfoTextField_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/profile_screen/local_widget/exit_dialog_box_widget.dart';
@@ -245,6 +246,7 @@ class _ProfileSceenState extends State<ProfileSceen> {
           LogoutConsumer(logoutBloc: _logoutBloc),
         ],
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 3),
     );
   }
 }

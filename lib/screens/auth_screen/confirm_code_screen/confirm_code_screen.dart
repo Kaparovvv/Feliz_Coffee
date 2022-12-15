@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../buyer/screens/profile_screen/profile_screen.dart';
+
 class ConfirmScreen extends StatefulWidget {
   final String email;
   final String pinCode;
@@ -103,8 +105,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const BuyerNavigationWidget(
-                                          currentIndex: 0),
+                                      const ProfileSceen()
                                 ),
                               );
                             }
@@ -205,6 +206,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 1),
     );
   }
 }
