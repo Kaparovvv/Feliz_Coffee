@@ -1,6 +1,6 @@
 import 'package:feliz_coin/helper/catchException.dart';
 import 'package:feliz_coin/models/category_seller_model.dart';
-import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/bloc/category_repository.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/local_blocs/category_bloc/category_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'category_event.dart';

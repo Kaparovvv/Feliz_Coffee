@@ -1,23 +1,18 @@
+import 'package:feliz_coin/commons/icon_images.dart';
+import 'package:feliz_coin/commons/images_helper.dart';
 import 'package:feliz_coin/commons/text_style_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/cashed_network_image.dart.dart';
+import 'package:feliz_coin/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BoxCatalogProductsWidget extends StatelessWidget {
-  final String? imageUrl;
-  final String? productName;
-  final String? productType;
-  final String? price;
-  final String? cashBack;
+  final ProductModel productList;
 
   const BoxCatalogProductsWidget({
     Key? key,
-    required this.imageUrl,
-    required this.productName,
-    required this.productType,
-    required this.price,
-    required this.cashBack,
+    required this.productList,
   }) : super(key: key);
 
   @override
@@ -34,7 +29,7 @@ class BoxCatalogProductsWidget extends StatelessWidget {
         child: Row(
           children: [
             CustomCachedNetworkImageWidget(
-              imageUrl: imageUrl,
+              imageUrl: productList.image,
               width: 60.w,
               height: 60.h,
               radius: BorderRadius.circular(10.r),
@@ -47,7 +42,7 @@ class BoxCatalogProductsWidget extends StatelessWidget {
                 SizedBox(
                   width: 150.w,
                   child: Text(
-                    productName ?? 'unknown',
+                    productList.title ?? 'unknown',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyleHelper.productNameBrown80
                         .copyWith(color: ThemeHelper.white),
@@ -56,7 +51,7 @@ class BoxCatalogProductsWidget extends StatelessWidget {
                 SizedBox(
                   width: 90.w,
                   child: Text(
-                    productType ?? 'unknown',
+                    productList.category!.name ?? 'unknown',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyleHelper.f14fw500
                         .copyWith(color: ThemeHelper.white),
@@ -70,7 +65,7 @@ class BoxCatalogProductsWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        '${price ?? 00.0} сом/ ',
+                        '${productList.price ?? 00.0} сом /',
                         style: TextStyleHelper.f12fw600
                             .copyWith(color: ThemeHelper.white),
                       ),
@@ -78,16 +73,16 @@ class BoxCatalogProductsWidget extends StatelessWidget {
                         padding: EdgeInsets.only(left: 7.w),
                         child: Row(
                           children: [
-                            Text('+ ${cashBack ?? 0}',
+                            Text('+ ${productList.percentCashback ?? 0}',
                                 style: TextStyleHelper.f16fw700),
                             ImageIcon(
-                              const AssetImage('assets/images/coin.png'),
+                              AssetImage(IconsImages.coin),
                               color: ThemeHelper.yellow,
                               size: 12,
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
