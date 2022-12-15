@@ -1,3 +1,4 @@
+import 'package:feliz_coin/screens/buyer/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,57 +12,56 @@ import '../screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
 class SellerNavigationWidget extends StatelessWidget {
   final int currentPage;
 
-  SellerNavigationWidget({this.currentPage = 0});
+  const SellerNavigationWidget({Key? key, this.currentPage = 0})
+      : super(key: key);
 
   List<BottomNavigationBarItem> _generateItemList() {
-    
     var items = <BottomNavigationBarItem>[
-     BottomNavigationBarItem(
-      icon: Image.asset(
-        IconsImages.shopIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
-      ),
-      activeIcon: Image.asset(
-         IconsImages.shopIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
-      ),
-      label: "Каталог",
-    ),
       BottomNavigationBarItem(
-      icon: Image.asset(
-        IconsImages.iconBasket,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
+        icon: Image.asset(
+          IconsImages.shopIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.shopIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Каталог",
       ),
-      activeIcon: Image.asset(
-        IconsImages.iconBasket,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
-      ),
-      label: "Корзина",
-    ),
       BottomNavigationBarItem(
-      icon: Image.asset(
-       IconsImages.incomeIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
+        icon: Image.asset(
+          IconsImages.iconBasket,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.iconBasket,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Корзина",
       ),
-      activeIcon: Image.asset(
-         IconsImages.incomeIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
+      BottomNavigationBarItem(
+        icon: Image.asset(
+          IconsImages.incomeIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.incomeIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Касса",
       ),
-      label: "Касса",
-    ),
-      
     ];
     return items;
   }
@@ -75,7 +75,7 @@ class SellerNavigationWidget extends StatelessWidget {
       selectedLabelStyle: TextStyleHelper.labelStyle,
       unselectedLabelStyle: TextStyleHelper.labelStyle,
       showUnselectedLabels: true,
-      backgroundColor: Color.fromRGBO(83, 42, 42, 0.8),
+      backgroundColor: ThemeHelper.brown80,
       iconSize: 24,
       unselectedFontSize: 14,
       onTap: (index) async {
@@ -83,24 +83,36 @@ class SellerNavigationWidget extends StatelessWidget {
           case 0:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CatalogScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CatalogScreen(),
+                  ),
+                );
               }
               break;
             }
           case 1:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BasketScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BasketScreen(),
+                  ),
+                );
               }
               break;
             }
           case 2:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BoxOfficeScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BoxOfficeScreen(),
+                  ),
+                );
               }
               break;
             }
@@ -111,4 +123,3 @@ class SellerNavigationWidget extends StatelessWidget {
     );
   }
 }
-

@@ -13,7 +13,9 @@ import 'package:feliz_coin/screens/auth_screen/local_widgets/auth_textfield_widg
 import 'package:feliz_coin/screens/auth_screen/sign_in_screen/bloc/sign_in_bloc.dart';
 import 'package:feliz_coin/screens/auth_screen/sign_up_screen/local_widgets/authBox_widget.dart';
 import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
+import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/basket_screen.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
 import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -264,14 +266,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             ? Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const BasketScreen(),
+                                  builder: (context) => const CatalogScreen(),
                                 ),
                               )
                             : Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProfileSceen()
+                                  builder: (context) => const BranchScreen(),
                                 ),
                               );
                       }

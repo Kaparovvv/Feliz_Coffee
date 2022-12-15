@@ -1,6 +1,3 @@
-
-
-
 import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
 import 'package:feliz_coin/screens/buyer/screens/shop_screen/shop_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,72 +14,71 @@ import '../screens/profile_screen/profile_screen.dart';
 class BuyerNavigationWidget extends StatelessWidget {
   final int currentPage;
 
-  BuyerNavigationWidget({this.currentPage = 0});
+  const BuyerNavigationWidget({Key? key, this.currentPage = 0})
+      : super(key: key);
 
   List<BottomNavigationBarItem> _generateItemList() {
-    
     var items = <BottomNavigationBarItem>[
-     BottomNavigationBarItem(
-      icon: Image.asset(
-        IconsImages.shopIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
-      ),
-      activeIcon: Image.asset(
-       IconsImages.shopIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
-      ),
-      label: 'Каталог',
-    ),
       BottomNavigationBarItem(
-      icon: Image.asset(
-        IconsImages.balanceIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
+        icon: Image.asset(
+          IconsImages.shopIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.shopIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: 'Каталог',
       ),
-      activeIcon: Image.asset(
-       IconsImages.balanceIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
-      ),
-      label: "Баланс",
-    ),
       BottomNavigationBarItem(
-      icon: Image.asset(
-       IconsImages.qrCodeIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
+        icon: Image.asset(
+          IconsImages.balanceIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.balanceIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Баланс",
       ),
-      activeIcon: Image.asset(
-         IconsImages.qrCodeIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
-      ),
-      label: "Qr-code",
-    ),
-      
       BottomNavigationBarItem(
-      icon: Image.asset(
-       IconsImages.profileIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white50,
+        icon: Image.asset(
+          IconsImages.qrCodeIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.qrCodeIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Qr-code",
       ),
-      activeIcon: Image.asset(
-         IconsImages.profileIcon,
-        width: 40.w,
-        height: 40.h,
-        color: ThemeHelper.white,
+      BottomNavigationBarItem(
+        icon: Image.asset(
+          IconsImages.profileIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white50,
+        ),
+        activeIcon: Image.asset(
+          IconsImages.profileIcon,
+          width: 40.w,
+          height: 40.h,
+          color: ThemeHelper.white,
+        ),
+        label: "Профиль",
       ),
-      label: "Прфиль",
-    ),
     ];
     return items;
   }
@@ -104,31 +100,48 @@ class BuyerNavigationWidget extends StatelessWidget {
           case 0:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BranchScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BranchScreen(),
+                  ),
+                );
               }
               break;
             }
           case 1:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BalanceScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BalanceScreen(),
+                  ),
+                );
               }
               break;
             }
           case 2:
             {
               if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QrCodeScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QrCodeScreen(),
+                  ),
+                );
               }
               break;
             }
-            case 3:{
-                if (currentPage != index) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileSceen()));
+          case 3:
+            {
+              if (currentPage != index) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileSceen(),
+                  ),
+                );
               }
               break;
             }
@@ -139,4 +152,3 @@ class BuyerNavigationWidget extends StatelessWidget {
     );
   }
 }
-
