@@ -1,3 +1,6 @@
+import 'package:feliz_coin/screens/buyer/screens/shop_screen/shop_screen.dart';
+import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/basket_screen.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
 import 'package:feliz_coin/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
+        home: const CatalogScreen(),
       ),
     );
   }

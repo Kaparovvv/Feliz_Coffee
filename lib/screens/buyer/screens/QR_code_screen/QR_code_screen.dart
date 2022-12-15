@@ -3,6 +3,7 @@ import 'package:feliz_coin/commons/text_style_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_widgets/appCover_widget.dart';
 import 'package:feliz_coin/global_widgets/cashed_network_image.dart.dart';
+import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -57,6 +58,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: BuyerNavigationWidget(currentPage: 2),
     );
   }
 }

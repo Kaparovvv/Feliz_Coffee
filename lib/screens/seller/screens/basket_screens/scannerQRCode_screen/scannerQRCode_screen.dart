@@ -124,7 +124,7 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const SellerNavigationWidget(currentIndex: 1),
+                          const   BasketScreen()
                       ),
                     ),
                     title: 'QR-code отсканирован',
@@ -204,6 +204,7 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
     );
   }
 }
