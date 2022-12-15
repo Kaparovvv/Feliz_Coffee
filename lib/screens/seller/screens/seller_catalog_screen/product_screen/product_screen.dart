@@ -14,8 +14,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductSellerScreen extends StatefulWidget {
   final int categoryId;
-  const ProductSellerScreen({Key? key, required this.categoryId})
-      : super(key: key);
+  final bool isSale;
+  const ProductSellerScreen({
+    Key? key,
+    required this.categoryId,
+    required this.isSale,
+  }) : super(key: key);
 
   @override
   State<ProductSellerScreen> createState() => _ProductSellerScreenState();
@@ -49,7 +53,15 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
                     .add(GetProductEvent(categoryId: widget.categoryId)),
                 child: BlocConsumer<ProductBloc, ProductState>(
                   bloc: _productBloc,
-                  listener: (context, state) {},
+                  listener: (context, state) {
+                    if (state is ProductErrorState) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.error.message!),
+                        ),
+                      );
+                    }
+                  },
                   builder: (context, state) {
                     if (state is ProductLoadingState) {
                       return LoadingIndicatorWidget(
@@ -90,13 +102,9 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
                               ),
                               itemCount: state.listOfProduct.length,
                               itemBuilder: (context, index) {
-                                var product = state.listOfProduct[index];
                                 return CatalogProductWidget(
-                                  imageUrl: product.image,
-                                  productName: product.title,
-                                  productType: product.category!.name,
-                                  price: product.price,
-                                  cashBack: product.percentCashback.toString(),
+                                  isSale: widget.isSale,
+                                  productList: state.listOfProduct[index],
                                 );
                               },
                               separatorBuilder:

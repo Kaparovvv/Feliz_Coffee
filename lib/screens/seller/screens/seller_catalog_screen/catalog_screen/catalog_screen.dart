@@ -7,7 +7,7 @@ import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
 import 'package:feliz_coin/global_widgets/refresh_indicator_widget.dart';
 import 'package:feliz_coin/global_widgets/search_textfield_widget.dart';
 import 'package:feliz_coin/screens/buyer/screens/shop_screen/local_widgets/product_name_widget.dart';
-import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/bloc/category_bloc.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/local_blocs/category_bloc/category_bloc.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/product_screen.dart';
 import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CatalogScreen extends StatefulWidget {
-  const CatalogScreen({Key? key}) : super(key: key);
+  final bool? isSale;
+  const CatalogScreen({Key? key, this.isSale = false}) : super(key: key);
 
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
@@ -58,7 +59,17 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     padding: EdgeInsets.only(top: 39.h),
                     child: BlocConsumer<CategoryBloc, CategoryState>(
                       bloc: _categoryBloc,
-                      listener: (context, state) {},
+                      listener: (context, state) {
+                        if (state is ErrorCategoryState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                state.message.toString(),
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       builder: (context, state) {
                         if (state is LoadingCategoryState) {
                           return LoadingIndicatorWidget(
@@ -100,8 +111,10 @@ class _CatalogScreenState extends State<CatalogScreen> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 21.w),
                                       child: ProductNameWidget(
-                                        textStyle:
-                                            TextStyleHelper.productNameGreen80,
+                                        textStyle: TextStyleHelper
+                                            .productNameGreen80
+                                            .copyWith(
+                                                color: ThemeHelper.brown80),
                                         borderColor: ThemeHelper.brown80,
                                         productName: category.name,
                                         function: () {
@@ -110,6 +123,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductSellerScreen(
+                                                isSale: widget.isSale ?? false,
                                                 categoryId: category.id!,
                                               ),
                                             ),
