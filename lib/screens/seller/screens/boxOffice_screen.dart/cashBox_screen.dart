@@ -60,7 +60,7 @@ class _CashBoxScreenState extends State<CashBoxScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 2),
+      bottomNavigationBar: const SellerNavigationWidget(currentPage: 2),
     );
   }
 }

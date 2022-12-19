@@ -8,12 +8,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ProfileProvider {
   Box userData = Hive.box('userDataBox');
-  Box userIdBox = Hive.box('userIdBox');
-  Future<UserDataModel> getProfile({required int userId}) async {
+  Future<UserDataModel> getProfile({required String userId}) async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response =
-          await requester.toGet('/register/${userIdBox.get('userId')}/');
+      Response response = await requester.toGet('/register/$userId/');
 
       if (response.statusCode == 200) {
         log("Pofile Data ==================== ${response.data}");

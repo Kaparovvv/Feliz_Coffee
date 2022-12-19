@@ -12,6 +12,7 @@ void main() async {
   await Hive.openBox('pincodeBox');
   await Hive.openBox('emailBox');
   await Hive.openBox<dynamic>('userDataBox');
+  await Hive.openBox<dynamic>('buyerDataBox');
   runApp(const MyApp());
 }
 

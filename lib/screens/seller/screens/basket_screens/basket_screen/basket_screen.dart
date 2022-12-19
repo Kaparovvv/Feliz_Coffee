@@ -48,7 +48,7 @@ class _BasketScreenState extends State<BasketScreen> {
                     builder: (context) => const ScannerQRCodeScreen(),
                   ),
                 ),
-                buttonTxt: 'Сканировать QR-код',
+                buttonTxt: 'Сканировать QR-код клиента',
                 iconWidget: ImageIcon(
                   AssetImage(IconsImages.iconCamera),
                   size: 25,

@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:feliz_coin/commons/text_style_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
+import 'package:feliz_coin/global_blocs/user_data_bloc/profile_bloc.dart';
 import 'package:feliz_coin/global_widgets/feliz_logo_widget.dart';
 import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
+import 'package:feliz_coin/global_widgets/loading_overlay_widget.dart';
 import 'package:feliz_coin/global_widgets/show_dialog_widget.dart';
 import 'package:feliz_coin/global_widgets/txtBtnBack_widget.dart';
 import 'package:feliz_coin/screens/auth_screen/confirm_code_screen/blocs/confirm_bloc/confirm_code_bloc.dart';
@@ -12,9 +14,11 @@ import 'package:feliz_coin/screens/auth_screen/confirm_code_screen/local_widgets
 import 'package:feliz_coin/screens/auth_screen/local_widgets/auth_button_widget.dart';
 import 'package:feliz_coin/screens/auth_screen/sign_up_screen/local_widgets/authBox_widget.dart';
 import 'package:feliz_coin/screens/buyer/buyer_navigation_widget.dart/buyer_navigation_widget.dart';
+import 'package:feliz_coin/screens/buyer/screens/branch_screen/branch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../buyer/screens/profile_screen/profile_screen.dart';
 
@@ -34,10 +38,13 @@ class ConfirmScreen extends StatefulWidget {
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late ConfirmCodeBloc _confirmCodeBloc;
   late ResendCodeBloc _resendCodeBloc;
+  late ProfileBloc _profileBloc;
+
   @override
   void initState() {
     _confirmCodeBloc = ConfirmCodeBloc();
     _resendCodeBloc = ResendCodeBloc();
+    _profileBloc = ProfileBloc();
     super.initState();
   }
 
@@ -101,11 +108,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                             }
 
                             if (state is LoadedConfirmCodeState) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProfileSceen()
+                              Box userIdBox = Hive.box('userIdBox');
+                              _profileBloc.add(
+                                GetProfileEvent(
+                                  userId: userIdBox.get('userId'),
                                 ),
                               );
                             }
@@ -200,13 +206,40 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       ],
                     ),
                   ),
+                  BlocConsumer<ProfileBloc, ProfileState>(
+                    bloc: _profileBloc,
+                    listener: (context, state) {
+                      if (state is ErrorProfileState) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              state.message.toString(),
+                            ),
+                          ),
+                        );
+                      }
+                      if (state is LoadedProfileState) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BranchScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is LoadingProfileState) {
+                        return const LoadingOverlayWidget();
+                      }
+                      return const SizedBox();
+                    },
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BuyerNavigationWidget(currentPage: 1),
     );
   }
 }

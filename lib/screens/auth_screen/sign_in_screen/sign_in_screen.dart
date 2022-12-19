@@ -232,8 +232,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         state.userIdModel.id;
                         _profileBloc.add(
                           GetProfileEvent(
-                              // userId: userId.get('userId'),
-                              userId: state.userIdModel.id!),
+                            userId: state.userIdModel.id!.toString(),
+                          ),
                         );
                       }
                     },

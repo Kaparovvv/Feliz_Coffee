@@ -60,7 +60,7 @@ class _BoxOfficeScreenState extends State<BoxOfficeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 2),
+      bottomNavigationBar: const SellerNavigationWidget(currentPage: 2),
     );
   }
 }
