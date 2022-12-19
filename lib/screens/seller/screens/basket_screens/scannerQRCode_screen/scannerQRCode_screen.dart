@@ -6,6 +6,7 @@ import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_blocs/user_data_bloc/profile_bloc.dart';
 import 'package:feliz_coin/global_widgets/content_dialog_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/basket_screen.dart';
+import 'package:feliz_coin/screens/seller/screens/basket_screens/scannerQRCode_screen/buyer_data_bloc/buyer_data_bloc.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/scannerQRCode_screen/local_widgets/qrScannerOverlay_widget.dart';
 import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,11 @@ class ScannerQRCodeScreen extends StatefulWidget {
 class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
   late MobileScannerController _scannerController;
   bool isScanned = false;
-  late ProfileBloc _profileBloc;
-  Box userData = Hive.box('userDataBox');
+  late BuyerDataBloc _buyerDataBloc;
 
   @override
   void initState() {
-    _profileBloc = ProfileBloc();
+    _buyerDataBloc = BuyerDataBloc();
     _scannerController = MobileScannerController();
     super.initState();
   }
@@ -90,14 +90,14 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
                         } else {
                           final String userId = barcode.rawValue!;
                           final decodeMap = json.decode(userId);
-                          log(decodeMap.toString());
+                          log(decodeMap['user_id'].toString());
                           setState(() {
                             isScanned = true;
                           });
                           if (barcode.rawValue!.isNotEmpty) {
-                            _profileBloc.add(
-                              GetProfileEvent(
-                                userId: 10,
+                            _buyerDataBloc.add(
+                              GetBuyerDataEvent(
+                                buyerId: decodeMap['user_id'],
                               ),
                             );
                           }
@@ -114,10 +114,10 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
               : QRScannerOverlayWidget(
                   overlayColour: Colors.black.withOpacity(0.7),
                 ),
-          BlocBuilder<ProfileBloc, ProfileState>(
-            bloc: _profileBloc,
+          BlocBuilder<BuyerDataBloc, BuyerDataState>(
+            bloc: _buyerDataBloc,
             builder: (context, state) {
-              if (state is LoadedProfileState) {
+              if (state is LoadedBuyerDataState) {
                 return Center(
                   child: ContentDialogWidget(
                     onPressed: () => Navigator.pushReplacement(
@@ -126,8 +126,8 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
                           builder: (context) => const BasketScreen()),
                     ),
                     title: 'QR-code отсканирован',
-                    username: state.userDataModel.username,
-                    cashback: state.userDataModel.cashbackAll,
+                    username: state.buyerDataModel.username,
+                    cashback: state.buyerDataModel.cashbackAll,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 15.w,
                       vertical: 20.h,
@@ -202,7 +202,6 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
           ),
         ],
       ),
-      // bottomNavigationBar: SellerNavigationWidget(currentPage: 1,),
     );
   }
 }

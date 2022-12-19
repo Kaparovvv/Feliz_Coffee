@@ -28,9 +28,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
   @override
   void initState() {
     _categoryBloc = CategoryBloc();
-    _categoryBloc.add(
-      GetCategoryEvent(),
-    );
+    _categoryBloc.add(GetCategoryEvent());
     super.initState();
   }
 
@@ -152,7 +150,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: SellerNavigationWidget(currentPage: 0),
+      bottomNavigationBar: const SellerNavigationWidget(currentPage: 0),
     );
   }
 }

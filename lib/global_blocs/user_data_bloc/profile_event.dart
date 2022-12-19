@@ -4,7 +4,7 @@ part of 'profile_bloc.dart';
 abstract class ProfileEvent {}
 
 class GetProfileEvent extends ProfileEvent {
-  final int userId;
+  final String userId;
 
   GetProfileEvent({required this.userId});
 }
