@@ -12,6 +12,7 @@ class CustomCachedNetworkImageWidget extends StatelessWidget {
     required this.height,
     this.radius,
     this.isSeller,
+    this.shape,
   }) : super(key: key);
   final bool isRadius;
   final String? imageUrl;
@@ -19,6 +20,7 @@ class CustomCachedNetworkImageWidget extends StatelessWidget {
   final double? height;
   final BorderRadius? radius;
   final bool? isSeller;
+  final BoxShape? shape;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class CustomCachedNetworkImageWidget extends StatelessWidget {
         height: height!,
         decoration: BoxDecoration(
           borderRadius: isRadius ? radius : null,
+          shape: shape ?? BoxShape.rectangle,
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.fill,

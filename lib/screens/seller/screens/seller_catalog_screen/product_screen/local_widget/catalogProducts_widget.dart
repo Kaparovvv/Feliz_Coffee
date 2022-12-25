@@ -1,21 +1,28 @@
+import 'dart:developer';
+
 import 'package:feliz_coin/commons/icon_images.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
+import 'package:feliz_coin/global_widgets/loadingIndicator_widget.dart';
 import 'package:feliz_coin/models/product_model.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/local_widget/product_dialog_box_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/local_widget/boxCatalogProducts_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/local_widget/circleButton_widget.dart';
-import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/local_blocs/basket_bloc/basket_bloc.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/product_screen/sale_product/sale_product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class CatalogProductWidget extends StatefulWidget {
   final ProductModel productList;
+  final int? saleId;
   final bool isSale;
 
   const CatalogProductWidget({
     Key? key,
     required this.productList,
+    required this.saleId,
     this.isSale = false,
   }) : super(key: key);
 
@@ -24,141 +31,129 @@ class CatalogProductWidget extends StatefulWidget {
 }
 
 class _CatalogProductWidgetState extends State<CatalogProductWidget> {
-  late BasketBloc _basketBloc;
-
+  late SaleProductBloc _saleProductBloc;
   @override
   void initState() {
-    _basketBloc = BasketBloc();
+    _saleProductBloc = SaleProductBloc();
+    log('CatalogProduct Sale ID ===== ${widget.saleId}');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ProductModel product = widget.productList;
     return widget.isSale
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               BoxCatalogProductsWidget(
-                productList: widget.productList,
+                onPressed: () {},
+                productList: product,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  BlocConsumer<BasketBloc, BasketState>(
-                    bloc: _basketBloc,
-                    listener: (context, state) {
-                      if (state is ProductInBasketState) {
-                        // log(state.productOfList.length.toString());
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: SizedBox(
-                        //       width: 300.w,
-                        //       height: 150.h,
-                        //       child: ListView.builder(
-                        //         itemCount: state.productOfList.length,
-                        //         itemBuilder: (context, index) {
-                        //           var product = state.productOfList[index];
-                        //           return Text(
-                        //             '${product.category},\n${product.productData![index].name},\n ${product.productData![index].price}\n ${product.productData![index].percentCashback}',
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
-                        //   ),
-                        // );
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is ProductIsNotBasketState) {
-                        return CircleButtonWidget(
-                          isAdd: false,
-                          function: () {
-                            // _basketBloc.add(
-                            //   AddProductToBasketEvent(
-                            //     productOfList: ProductOfList(
-                            //       category: value.category!.name,
-                            //       productData: [
-                            //         ProductData(
-                            //           name: value.title,
-                            //           price: value.price,
-                            //           percentCashback: value.percentCashback,
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // );
-                          },
-                          iconWidget: Icon(
-                            Icons.add,
-                            color: ThemeHelper.brown80,
-                            size: 23,
-                          ),
-                        );
-                      }
-                      if (state is ProductInBasketState) {
-                        return CircleButtonWidget(
-                          isAdd: true,
-                          function: () =>
-                              _basketBloc.add(DeleteProductFromBasketEvent()),
-                          iconWidget: Icon(
-                            Icons.done,
-                            color: ThemeHelper.white,
-                            size: 23,
-                          ),
-                        );
-                      }
-                      return CircleButtonWidget(
-                        function: () {
-                          // _basketBloc.add(
-                          //   AddProductToBasketEvent(
-                          //     productOfList: ProductOfList(
-                          //       category: value.category!.name,
-                          //       productData: [
-                          //         ProductData(
-                          //           name: value.title,
-                          //           price: value.price,
-                          //           percentCashback: value.percentCashback,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // );
-                        },
-                        iconWidget: Icon(
-                          Icons.add,
-                          color: ThemeHelper.brown80,
-                          size: 23,
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  CircleButtonWidget(
-                    function: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CatalogScreen(
-                          isSale: widget.isSale,
+              BlocConsumer<SaleProductBloc, SaleProductState>(
+                bloc: _saleProductBloc,
+                listener: (context, state) {
+                  if (state is ErrorSaleProductState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.message.toString(),
                         ),
                       ),
-                    ),
-                    iconWidget: ImageIcon(
-                      AssetImage(
-                        IconsImages.iconBasket,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AddingProductToBasketState) {
+                    return SizedBox(
+                      height: 60.h,
+                      width: 60.w,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballScaleMultiple,
+                        colors: [
+                          ThemeHelper.brown20,
+                          ThemeHelper.brown50,
+                          ThemeHelper.brown80,
+                        ],
                       ),
+                    );
+                  }
+
+                  if (state is DeletingProductFromBasketState) {
+                    return SizedBox(
+                      height: 60.h,
+                      width: 60.w,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballScaleMultiple,
+                        colors: [
+                          ThemeHelper.brown20,
+                          ThemeHelper.brown50,
+                          ThemeHelper.brown80,
+                        ],
+                      ),
+                    );
+                  }
+                  if (state is DeletedProductFromBasketState) {
+                    return CircleButtonWidget(
+                      isAdd: false,
+                      iconWidget: Icon(
+                        Icons.add,
+                        color: ThemeHelper.brown80,
+                        size: 30,
+                      ),
+                      function: () => showDialog(
+                        context: context,
+                        builder: (context) => ProductDialogBox(
+                          saleProductBloc: _saleProductBloc,
+                          saleId: widget.saleId,
+                          productModel: product,
+                          isSale: true,
+                        ),
+                      ),
+                    );
+                  }
+                  if (state is AddedProductToBasketState) {
+                    return CircleButtonWidget(
+                      isAdd: true,
+                      iconWidget: Icon(
+                        Icons.done,
+                        color: ThemeHelper.white,
+                        size: 30,
+                      ),
+                      function: () => _saleProductBloc.add(
+                        DeletingProductFromBasketEvent(
+                          saleProductId: state.saleProductModel.id.toString(),
+                        ),
+                      ),
+                    );
+                  }
+                  return CircleButtonWidget(
+                    isAdd: false,
+                    iconWidget: Icon(
+                      Icons.add,
                       color: ThemeHelper.brown80,
-                      size: 23,
+                      size: 30,
                     ),
-                  ),
-                ],
+                    function: () => showDialog(
+                      context: context,
+                      builder: (context) => ProductDialogBox(
+                        saleProductBloc: _saleProductBloc,
+                        saleId: widget.saleId,
+                        productModel: product,
+                        isSale: true,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           )
         : BoxCatalogProductsWidget(
-            productList: widget.productList,
+            onPressed: () => showDialog(
+              context: context,
+              builder: (context) => ProductDialogBox(productModel: product),
+            ),
+            productList: product,
           );
   }
 }

@@ -28,7 +28,7 @@ class _LogoutConsumerState extends State<LogoutConsumer> {
       bloc: widget._logoutBloc,
       listener: (context, state) {
         if (state is LoadedLogoutState) {
-          if (state.logoutUser.isLogout) {
+          if (state.logoutUser.isLogout == true) {
             _exitApp();
             if (tokenBox.isEmpty) {
               Navigator.pushReplacement(

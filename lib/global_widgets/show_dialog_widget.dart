@@ -10,6 +10,7 @@ class ShowDialogWidget extends StatelessWidget {
   final String buttonText;
   final EdgeInsets contentPadding;
   final EdgeInsets buttonPadding;
+  final bool isSeller;
 
   const ShowDialogWidget({
     Key? key,
@@ -18,6 +19,7 @@ class ShowDialogWidget extends StatelessWidget {
     required this.buttonText,
     required this.contentPadding,
     required this.buttonPadding,
+    required this.isSeller,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,9 @@ class ShowDialogWidget extends StatelessWidget {
         contentText,
         textAlign: TextAlign.center,
       ),
-      contentTextStyle: TextStyleHelper.f16Green100,
+      contentTextStyle: isSeller
+          ? TextStyleHelper.f16Green100.copyWith(color: ThemeHelper.brown80)
+          : TextStyleHelper.f16Green100,
       actionsAlignment: MainAxisAlignment.center,
       actions: <Widget>[
         Padding(
@@ -41,7 +45,7 @@ class ShowDialogWidget extends StatelessWidget {
             function: () => onPressed(),
             width: 200.w,
             height: 30.h,
-            themeButton: ThemeHelper.green80,
+            themeButton: isSeller ? ThemeHelper.brown80 : ThemeHelper.green80,
             textColor: ThemeHelper.white,
           ),
         ),

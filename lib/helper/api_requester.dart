@@ -57,4 +57,18 @@ class ApiRequester {
       throw CatchException.convertException(e);
     }
   }
+
+  Future<Response> toDelete(
+    String url, {
+    bool? isToken = false,
+  }) async {
+    Dio dio = await initDio(isToken: isToken!);
+    try {
+      return dio.delete(url);
+    } catch (e) {
+      throw CatchException.convertException(e);
+    }
+  }
 }
+
+class DioExceptions implements Exception {}

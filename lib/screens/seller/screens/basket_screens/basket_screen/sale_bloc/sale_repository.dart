@@ -1,14 +1,15 @@
+import 'package:feliz_coin/commons/sale_deleted.dart';
 import 'package:feliz_coin/models/create_sale_model.dart';
-import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/create_sale_bloc/create_sale_provider.dart';
+import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/sale_bloc/sale_provider.dart';
 
-class CreateSaleRepository {
+class SaleRepository {
   Future<CreateSaleModel> createSale({
     required int branchId,
     required int? clientId,
     required String? fromBalanceAmount,
     required bool? isSold,
   }) {
-    CreateSaleProvider provider = CreateSaleProvider();
+    SaleProvider provider = SaleProvider();
 
     return provider.createSale(
       branchId: branchId,
@@ -16,5 +17,10 @@ class CreateSaleRepository {
       fromBalanceAmount: fromBalanceAmount,
       isSold: isSold,
     );
+  }
+
+  Future<SaleDeleted> deleteSale({required String saleId}) {
+    SaleProvider provider = SaleProvider();
+    return provider.deleteSale(saleId: saleId);
   }
 }
