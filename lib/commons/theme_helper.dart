@@ -8,13 +8,17 @@ abstract class ThemeHelper {
   static Color green80 = const Color.fromRGBO(23, 69, 59, 0.8);
   static Color green25 = const Color.fromRGBO(23, 69, 59, 0.25);
   static Color green20 = const Color.fromRGBO(23, 69, 59, 0.2);
+  static Color blackDial = const Color(0xff1D1D1D);
   static Color green10 = const Color.fromRGBO(23, 69, 59, 0.1);
   static Color green50 = const Color.fromRGBO(23, 69, 59, 0.5);
   static Color green60 = const Color.fromRGBO(23, 69, 59, 0.6);
   static Color green100 = const Color.fromRGBO(23, 69, 59, 1);
+  static Color bejGray = const Color(0xffF4F4F0);
   static Color yellow = const Color(0xffFFD600);
   static Color brown80 = const Color.fromRGBO(83, 42, 42, 0.8);
   static Color brown50 = const Color.fromRGBO(83, 42, 42, 0.5);
   static Color brown20 = const Color.fromRGBO(83, 42, 42, 0.2);
   static Color cyan = Colors.cyan;
+  static Color red = const Color.fromARGB(255, 206, 37, 37);
+  static Color rgb135 = const Color.fromRGBO(135, 135, 135, 0.15);
 }

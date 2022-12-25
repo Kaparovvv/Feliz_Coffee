@@ -38,7 +38,7 @@ class ContentDialogWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Покупатель: ${username ?? 'unknown'}',
+            'Клиент: ${username ?? 'unknown'}',
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 15.h),
@@ -54,7 +54,7 @@ class ContentDialogWidget extends StatelessWidget {
         Padding(
           padding: buttonPadding,
           child: AuthButtonWidget(
-            txtButton: 'Перейти в корзину',
+            txtButton: 'Создать продажу для клиента',
             function: () => onPressed(),
             width: 200.w,
             height: 30.h,

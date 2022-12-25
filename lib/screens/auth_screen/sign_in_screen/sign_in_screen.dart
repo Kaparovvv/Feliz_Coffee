@@ -261,7 +261,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ? Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CatalogScreen(),
+                                  builder: (context) => CatalogScreen(),
                                 ),
                               )
                             : Navigator.pushReplacement(

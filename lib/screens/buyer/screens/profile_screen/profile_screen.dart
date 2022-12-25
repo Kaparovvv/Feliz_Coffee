@@ -246,7 +246,7 @@ class _ProfileSceenState extends State<ProfileSceen> {
           LogoutConsumer(logoutBloc: _logoutBloc),
         ],
       ),
-      bottomNavigationBar: BuyerNavigationWidget(currentPage: 3),
+      bottomNavigationBar: const BuyerNavigationWidget(currentPage: 3),
     );
   }
 }

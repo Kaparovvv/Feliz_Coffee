@@ -1,9 +1,9 @@
-part of 'create_sale_bloc.dart';
+part of 'sale_bloc.dart';
 
 @immutable
-abstract class CreateSaleEvent {}
+abstract class SaleEvent {}
 
-class PostCreateSaleEvent extends CreateSaleEvent {
+class PostCreateSaleEvent extends SaleEvent {
   final int branchId;
   final int? clientId;
   final String? fromBalanceAmount;
@@ -15,4 +15,10 @@ class PostCreateSaleEvent extends CreateSaleEvent {
     required this.fromBalanceAmount,
     required this.isSold,
   });
+}
+
+class DeleteSaleEvent extends SaleEvent {
+  final String saleId;
+
+  DeleteSaleEvent({required this.saleId});
 }

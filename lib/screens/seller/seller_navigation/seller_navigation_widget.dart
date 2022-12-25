@@ -85,7 +85,7 @@ class SellerNavigationWidget extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CatalogScreen(),
+                    builder: (context) => CatalogScreen(),
                   ),
                 );
               }

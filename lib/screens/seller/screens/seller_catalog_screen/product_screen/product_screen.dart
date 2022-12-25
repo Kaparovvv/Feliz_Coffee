@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:feliz_coin/commons/icon_images.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_blocs/product_bloc/product_bloc.dart';
@@ -15,10 +17,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProductSellerScreen extends StatefulWidget {
   final int categoryId;
   final bool isSale;
+  final int? saleId;
   const ProductSellerScreen({
     Key? key,
     required this.categoryId,
     required this.isSale,
+    required this.saleId,
   }) : super(key: key);
 
   @override
@@ -30,6 +34,7 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
 
   @override
   void initState() {
+    log('Product Sale ID ===== ${widget.saleId}');
     _productBloc = ProductBloc();
     _productBloc.add(GetProductEvent(categoryId: widget.categoryId));
     super.initState();
@@ -105,6 +110,7 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
                                 return CatalogProductWidget(
                                   isSale: widget.isSale,
                                   productList: state.listOfProduct[index],
+                                  saleId: widget.saleId,
                                 );
                               },
                               separatorBuilder:
@@ -124,7 +130,9 @@ class _ProductSellerScreenState extends State<ProductSellerScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const SellerNavigationWidget(currentPage: 0),
+      bottomNavigationBar: widget.isSale
+          ? const SizedBox()
+          : const SellerNavigationWidget(currentPage: 0),
     );
   }
 }

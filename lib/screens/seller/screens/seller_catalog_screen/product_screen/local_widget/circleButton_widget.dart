@@ -21,8 +21,8 @@ class CircleButtonWidget extends StatelessWidget {
       splashColor: Colors.grey.shade600,
       borderRadius: BorderRadius.circular(45.r),
       child: Ink(
-        width: 45.w,
-        height: 45.h,
+        width: 60.w,
+        height: 60.h,
         decoration: BoxDecoration(
           color: isAdd ? ThemeHelper.brown80 : ThemeHelper.white,
           boxShadow: [BoxShadowHelper.boxShadow25],

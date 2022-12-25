@@ -5,15 +5,20 @@ import 'package:feliz_coin/commons/text_style_helper.dart';
 import 'package:feliz_coin/commons/theme_helper.dart';
 import 'package:feliz_coin/global_blocs/user_data_bloc/profile_bloc.dart';
 import 'package:feliz_coin/global_widgets/content_dialog_widget.dart';
+import 'package:feliz_coin/global_widgets/loading_overlay_widget.dart';
+import 'package:feliz_coin/global_widgets/show_dialog_widget.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/basket_screen/basket_screen.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/scannerQRCode_screen/buyer_data_bloc/buyer_data_bloc.dart';
 import 'package:feliz_coin/screens/seller/screens/basket_screens/scannerQRCode_screen/local_widgets/qrScannerOverlay_widget.dart';
+import 'package:feliz_coin/screens/seller/screens/seller_catalog_screen/catalog_screen/catalog_screen.dart';
 import 'package:feliz_coin/screens/seller/seller_navigation/seller_navigation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+
+import '../basket_screen/sale_bloc/sale_bloc.dart';
 
 class ScannerQRCodeScreen extends StatefulWidget {
   const ScannerQRCodeScreen({Key? key}) : super(key: key);
@@ -26,10 +31,13 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
   late MobileScannerController _scannerController;
   bool isScanned = false;
   late BuyerDataBloc _buyerDataBloc;
+  late SaleBloc _saleBloc;
+  Box userData = Hive.box('userDataBox');
 
   @override
   void initState() {
     _buyerDataBloc = BuyerDataBloc();
+    _saleBloc = SaleBloc();
     _scannerController = MobileScannerController();
     super.initState();
   }
@@ -63,13 +71,13 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
       body: Stack(
         children: [
           Positioned(
-            top: 256.h,
+            top: 262.h,
             left: 44.w,
             right: 44.w,
             child: Material(
               child: Container(
                 width: 288.w,
-                height: 300.h,
+                height: 287.5.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.r),
                 ),
@@ -118,21 +126,25 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
             bloc: _buyerDataBloc,
             builder: (context, state) {
               if (state is LoadedBuyerDataState) {
+                var clientData = state.buyerDataModel;
                 return Center(
                   child: ContentDialogWidget(
-                    onPressed: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BasketScreen()),
-                    ),
                     title: 'QR-code отсканирован',
-                    username: state.buyerDataModel.username,
-                    cashback: state.buyerDataModel.cashbackAll,
+                    username: clientData.username,
+                    cashback: clientData.cashbackAll,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 15.w,
                       vertical: 20.h,
                     ),
                     buttonPadding: EdgeInsets.only(bottom: 30.h),
+                    onPressed: () => _saleBloc.add(
+                      PostCreateSaleEvent(
+                        branchId: userData.get('branchId'),
+                        clientId: clientData.id,
+                        fromBalanceAmount: null,
+                        isSold: null,
+                      ),
+                    ),
                   ),
                 );
               }
@@ -199,6 +211,53 @@ class _ScannerQRCodeScreenState extends State<ScannerQRCodeScreen> {
                 ),
               ],
             ),
+          ),
+          BlocConsumer<SaleBloc, SaleState>(
+            bloc: _saleBloc,
+            listener: (context, state) {
+              if (state is ErrorSaleState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.message.toString(),
+                    ),
+                  ),
+                );
+              }
+              if (state is LoadedCreateSaleState) {
+                dispose();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ShowDialogWidget(
+                      isSeller: true,
+                      contentText: 'Продажа успешно создано!',
+                      buttonText: 'Перейти в корзину',
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 20.h,
+                      ),
+                      buttonPadding: EdgeInsets.only(bottom: 20.h),
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CatalogScreen(
+                            isSale: true,
+                            saleId: state.createSaleModel.id,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is LoadingCreateSaleState) {
+                return const LoadingOverlayWidget();
+              }
+              return const SizedBox();
+            },
           ),
         ],
       ),

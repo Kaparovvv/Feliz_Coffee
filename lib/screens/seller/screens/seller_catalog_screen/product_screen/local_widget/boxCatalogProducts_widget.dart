@@ -8,23 +8,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BoxCatalogProductsWidget extends StatelessWidget {
   final ProductModel productList;
+  final Function() onPressed;
 
   const BoxCatalogProductsWidget({
     Key? key,
     required this.productList,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 260.w,
-      height: 98.h,
-      decoration: BoxDecoration(
-        color: ThemeHelper.brown80,
-        borderRadius: BorderRadius.circular(20.r),
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(left: 18.w),
+    return InkWell(
+      onTap: () => onPressed(),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 19.h),
+        decoration: BoxDecoration(
+          color: ThemeHelper.brown80,
+          borderRadius: BorderRadius.circular(20.r),
+        ),
         child: Row(
           children: [
             CustomCachedNetworkImageWidget(

@@ -111,7 +111,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                               Box userIdBox = Hive.box('userIdBox');
                               _profileBloc.add(
                                 GetProfileEvent(
-                                  userId: userIdBox.get('userId'),
+                                  userId: userIdBox.get('userId').toString(),
                                 ),
                               );
                             }
@@ -161,6 +161,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return ShowDialogWidget(
+                                    isSeller: false,
                                     onPressed: () => Navigator.pop(context),
                                     contentText: state.responseModel.message!,
                                     buttonText: 'Хорошо',
